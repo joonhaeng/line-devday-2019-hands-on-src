@@ -40,3 +40,26 @@ dependencyManagement {
 		mavenBom 'com.linecorp.armeria:armeria-bom:0.96.0'
 	}
 }
+
+protobuf {
+	protoc {
+		artifact = "com.google.protobuf:protoc:3.10.0"
+	}
+	plugins {
+		grpc {
+			artifact = 'io.grpc:protoc-gen-grpc-java:1.25.0'
+		}
+	}
+	generateProtoTasks {
+		all()*.plugins {
+			grpc {}
+		}
+		all().each { task ->
+			task.generateDescriptorSet = true
+			task.descriptorSetOptions.includeSourceInfo = true
+			task.descriptorSetOptions.includeImports = true
+			task.descriptorSetOptions.path =
+					"${buildDir}/resources/main/META-INF/armeria/grpc/service-name.dsc"
+		}
+	}
+}
