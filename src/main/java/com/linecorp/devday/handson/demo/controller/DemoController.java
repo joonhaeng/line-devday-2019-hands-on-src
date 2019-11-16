@@ -1,5 +1,6 @@
 package com.linecorp.devday.handson.demo.controller;
 
+import com.linecorp.devday.handson.demo.model.DemoModel;
 import com.linecorp.devday.handson.demo.service.DemoService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,14 @@ import reactor.core.publisher.Mono;
 public class DemoController {
 
     private final DemoService demoService;
+
+    @GetMapping("/random")
+    @ResponseBody
+    public Mono<DemoModel> getRandom() {
+
+        return demoService.getRandomDemoModel();
+
+    }
 
     @GetMapping("/hello")
     @ResponseBody
