@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package com.linecorp.devday.handson.demo.proto;
+option java_package = "com.linecorp.devday.handson.demo.proto";
+
+service Demo {
+
+    rpc Hello (DemoGrpcRequest) returns (DemoGrpcResponse);
+
+}
+
+message DemoGrpcRequest {
+
+    string message = 1;
+
+}
+
+message DemoGrpcResponse {
+
+    string message = 1;
+
+}
