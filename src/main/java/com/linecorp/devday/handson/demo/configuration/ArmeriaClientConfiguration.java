@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.nio.charset.StandardCharsets;
+
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
@@ -29,6 +31,7 @@ public class ArmeriaClientConfiguration {
         return clientBuilder -> {
 
             clientBuilder.decorator(LoggingClient.newDecorator());
+            clientBuilder.contentPreview(500, StandardCharsets.UTF_8);
             clientBuilder.factory(clientFactory);
 
         };
