@@ -63,3 +63,12 @@ protobuf {
 		}
 	}
 }
+
+sourceSets {
+	main {
+		java {
+			srcDir 'build/generated/source/proto/main/grpc'
+			srcDir 'build/generated/source/proto/main/java'
+		}
+	}
+}
