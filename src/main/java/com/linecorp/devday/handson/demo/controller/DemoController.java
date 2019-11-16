@@ -3,6 +3,7 @@ package com.linecorp.devday.handson.demo.controller;
 import com.linecorp.devday.handson.demo.model.DemoModel;
 import com.linecorp.devday.handson.demo.service.DemoService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,9 +17,17 @@ public class DemoController {
 
     @GetMapping("/random")
     @ResponseBody
-    public Mono<DemoModel> getRandom() {
+    public Mono<ResponseEntity<DemoModel>> getRandom() {
 
-        return demoService.getRandomDemoModel();
+        return demoService.getRandomDemoModel().map(demoModel -> {
+
+            if (demoModel.getArgs().get("randomNumber").equals("0")) {
+                return ResponseEntity.noContent().build();
+            } else {
+                return ResponseEntity.ok(demoModel);
+            }
+
+        });
 
     }
 
