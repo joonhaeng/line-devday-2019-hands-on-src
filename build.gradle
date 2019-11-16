@@ -31,3 +31,9 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+dependencyManagement {
+	imports {
+		mavenBom 'com.linecorp.armeria:armeria-bom:0.96.0'
+	}
+}
