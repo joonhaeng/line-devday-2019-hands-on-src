@@ -3,6 +3,7 @@ package com.linecorp.devday.handson.demo.configuration;
 import com.linecorp.armeria.client.ClientFactory;
 import com.linecorp.armeria.client.logging.LoggingClient;
 import com.linecorp.armeria.spring.web.reactive.ArmeriaClientConfigurator;
+import com.linecorp.devday.handson.demo.decorator.PrettyJsonPreviewClientDecorator;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,8 @@ import java.nio.charset.StandardCharsets;
 @Configuration
 @RequiredArgsConstructor
 public class ArmeriaClientConfiguration {
+
+    private final PrettyJsonPreviewClientDecorator prettyJsonPreviewClientDecorator;
 
     @Bean
     public ClientFactory clientFactory() {
@@ -32,6 +35,7 @@ public class ArmeriaClientConfiguration {
 
             clientBuilder.decorator(LoggingClient.newDecorator());
             clientBuilder.contentPreview(500, StandardCharsets.UTF_8);
+            clientBuilder.decorator(prettyJsonPreviewClientDecorator);
             clientBuilder.factory(clientFactory);
 
         };
